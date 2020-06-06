@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>check_out</title>
+    </head>
+<body>
+
+    <script language="JavaScript" type="text/javascript" src="https://js.paymentsos.com/v2/latest/secure-fields.min.js">
+    </script>
+
+    <script>
+        POS.setPublicKey("86ef7102-1dcd-44bb-8946-69c196c04ff9");
+    </script>
+
+<form id="payment-form">
+    <input type="text" id="cardholder-name" placeholder="John Doe" />
+    <div id="card-secure-fields">
+      <!-- The payment form will be displayed here -->
+    </div>
+    <button type=”submit”>Pay</button>
+  </form>
+
+  <script>
+
+    // Set your environment. Values are either "test" or "live".
+    // If omitted, the test environment will be used.
+    POS.setEnvironment("test");
+
+    // Initialize the form's fields
+    POS.initSecureFields('card-secure-fields');
+
+    // Attach a click event to the form that is invoked when the
+    // form is submitted. On submit, pass the card information to
+    // PaymentsOS and receive the token representing the card
+    // information in your site.
+    document.getElementById('payment-form').addEventListener('submit', function(event) {
+      event.preventDefault();
+      const additionalData = {
+        holder_name: document.getElementById('cardholder-name').value // This field is mandatory
+      }
+      POS.createToken(additionalData, function(result) {
+
+        // Grab the token here
+
+      });
+    });
+  </script>
+
+</body>
+</html>
